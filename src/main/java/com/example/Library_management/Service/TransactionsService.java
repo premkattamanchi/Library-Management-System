@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.ZoneId;
+import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.util.List;
 
@@ -79,9 +80,9 @@ public class TransactionsService {
         transactions.setCard(card);
         transactions.setTransactionStatus(TransactionStatus.PENDING);
         if(book.isIssued()==true && book.getCard().getId()==cardId){
+            int fine=calculateFine(cardId,bookId);
             book.setIssued(false);
             book.setCard(null);
-            int fine=calculateFine(cardId,bookId);
             transactions.setFine(fine);
             transactions.setTransactionStatus(TransactionStatus.SUCCESS);
         }
@@ -93,7 +94,7 @@ public class TransactionsService {
     }
     public int calculateFine(int cardId,int bookId)throws Exception{
         int finePerDay=2;
-        int fine=0;
+        long fine=0;
         Book book=bookRepository.findById(bookId).get();
         Card card=cardRepository.findById(cardId).get();
         List<Transactions> transactionsList=card.getTransactionsList();
@@ -105,15 +106,14 @@ public class TransactionsService {
         }
         if(transactionDate==null)
             throw new Exception("Cannot calculate Fine");
-        LocalDate currentDate=LocalDate.now();
+        LocalDate currentDate = LocalDate.parse("2023-05-27");
         //to convert Date to LocalDate
         LocalDate issuedDate= transactionDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        Period period = Period.between(issuedDate, currentDate);
-        int days = period.getDays();
-        int NoOfDaysToPayFine=days-14;
+        long days = issuedDate.until(currentDate, ChronoUnit.DAYS);
+        long NoOfDaysToPayFine=days-14;
         if(NoOfDaysToPayFine>0)
             fine=NoOfDaysToPayFine*2;
-        return fine;
+        return (int)fine;
 
     }
 

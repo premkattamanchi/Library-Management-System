@@ -16,7 +16,7 @@ public class TransactionsController {
             return transactionsService.issueBook(issueBookRequestDto);
         }
         catch(Exception e){
-            return e.getMessage();
+            return e.toString();
         }
     }
     @PostMapping("/return_book")
