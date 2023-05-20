@@ -22,4 +22,9 @@ public class StudentService {
         studentRepository.save(student);// only saving student entity by cascading effect child entity will be automatically saved
         return "Student and Card added";
     }
+    public String updateMail(String email,int studentId){
+        Student student=studentRepository.findById(studentId).get();
+        student.setEmail(email);
+        return "email updated";
+    }
 }

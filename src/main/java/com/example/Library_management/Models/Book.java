@@ -1,8 +1,8 @@
 package com.example.Library_management.Models;
 
 import com.example.Library_management.Enums.Genre;
+import jakarta.persistence.*;
 
-import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 

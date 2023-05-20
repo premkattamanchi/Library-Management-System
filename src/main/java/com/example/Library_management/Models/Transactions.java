@@ -1,10 +1,10 @@
 package com.example.Library_management.Models;
 
 import com.example.Library_management.Enums.TransactionStatus;
+import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 
-import javax.persistence.*;
 import java.util.Date;
 import java.util.UUID;
 

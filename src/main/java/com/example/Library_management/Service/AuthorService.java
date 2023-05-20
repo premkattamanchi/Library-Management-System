@@ -1,5 +1,4 @@
 package com.example.Library_management.Service;
-
 import com.example.Library_management.Converters.AuthorToDtoConverter;
 import com.example.Library_management.Converters.BookToDtoConverter;
 import com.example.Library_management.DTOs.ResponseDto.AuthorResponseDto;
@@ -12,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-
 @Service
 public class AuthorService {
     @Autowired
